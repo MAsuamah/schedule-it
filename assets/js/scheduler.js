@@ -8,6 +8,7 @@ var showDate = moment(currentDate).format('dddd, MMMM Do YYYY');
 
 $('#currentDay').append(showDate)
 
+
 //Array that will be used to display Timeblocks
 
 var workDay = [
@@ -46,6 +47,14 @@ var workDay = [
   {
     hour: '5pm',
     event: '',
-  }  
+  }
+
 ]
 
+//Display Timeblocks
+
+workDay.forEach(hourBlock => {
+  //Creates time columns
+  var hourColumn = $('<div>').text(hourBlock.hour).addClass('hour col-md-2')
+  $('.container').append(hourColumn)
+})
