@@ -54,12 +54,21 @@ var workDay = [
 //Display Timeblocks
 
 workDay.forEach(hourBlock => {
-  //Creates time columns
-  var hourColumn = $('<div>').text(hourBlock.hour).addClass('hour col-md-2')
-  $('.container').append(hourColumn);
+  //Creates scheduler row
+  var row = $('<form>').addClass('row');
+  $('.container').append(row);
 
-  var eventColumn = $('<form>').text(hourBlock.event).addClass('row col-md-8')
-  $('.container').append(eventColumn)
+  //Creates time columns
+  var hourColumn = $('<div>').text(hourBlock.hour).addClass('hour col-md-2');
+  $(row).append(hourColumn);
+
+  //Create event columns
+  var eventColumn = $('<textarea>').text(hourBlock.event).addClass('col-md-9 description');
+  $(row).append(eventColumn); 
+
+  var saveBtn = $('<button>').html('<i class="far fa-save"></i>').addClass('saveBtn col-md-1');
+  $(row).append(saveBtn);
+
 
 
 })
