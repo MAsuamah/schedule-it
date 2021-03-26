@@ -56,5 +56,10 @@ var workDay = [
 workDay.forEach(hourBlock => {
   //Creates time columns
   var hourColumn = $('<div>').text(hourBlock.hour).addClass('hour col-md-2')
-  $('.container').append(hourColumn)
+  $('.container').append(hourColumn);
+
+  var eventColumn = $('<form>').text(hourBlock.event).addClass('row col-md-8')
+  $('.container').append(eventColumn)
+
+
 })
