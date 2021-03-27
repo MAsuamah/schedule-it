@@ -1,12 +1,10 @@
 //Get current date using moment and display date in the jumbotron
 var showDate = moment().format('dddd, MMMM Do YYYY');
-
 $('#currentDay').append(showDate)
 
 //Get current hour from moment
 var currentHour = moment().format('HH');
 console.log(currentHour)
-
 
 //Array that will be used to display Timeblocks
 
@@ -66,7 +64,8 @@ var workDay = [
     event: '',
     id: 'i'
   }
-]
+];
+
 
 //Display Timeblocks
 
@@ -75,15 +74,15 @@ workDay.forEach(hourBlock => {
   var row = $('<form>').addClass('row time-block');
   $('.container').append(row);
 
-  //Creates time columns
+  //Creates time column
   var hourColumn = $('<div>').text(hourBlock.hour).addClass('hour col-md-2');
   $(row).append(hourColumn);
 
-  //Create event columns
+  //Create event column
   var eventColumn = $('<textarea>').text(hourBlock.event).addClass('col-md-9 description').attr('id', hourBlock.id);
   $(row).append(eventColumn); 
 
-  //Create Save button
+  //Create Save button column
   var saveBtn = $('<button>').html('<i class="far fa-save"></i>').addClass('saveBtn col-md-1');
   $(row).append(saveBtn);
 
@@ -96,18 +95,26 @@ workDay.forEach(hourBlock => {
     else if (currentHour === hourBlock.momentHour) {
       eventColumn.addClass('present')
     }
-})
+});
 
-//Save Data with save button
+//Save Data to local storage with save button...code help from https://stackoverflow.com/questions/27273444/save-and-load-input-values-using-local-storage/27273657
 $('.saveBtn').on('click', function(event) {
   event.preventDefault();
-  var getEvent = $(this).siblings('textarea').val()
-  console.log(getEvent)
-  localStorage.setItem('savedTask', getEvent)
-})
+  $(this).each(function() {
+    var id = $(this).siblings('textarea').attr('id');
+    var value = $(this).siblings('textarea').val();
+    localStorage.setItem(id, value);
+  })
+});
 
-
-
+//Load saved events when the document is ready...code help from https://stackoverflow.com/questions/27273444/save-and-load-input-values-using-local-storage/27273657
+$( document ).ready(function() {
+  $('textarea').each(function(){    
+      var id = $(this).attr('id');
+      var value = localStorage.getItem(id);
+      $(this).val(value);
+  }); 
+});
 
 
 
