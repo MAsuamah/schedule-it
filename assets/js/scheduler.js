@@ -1,12 +1,12 @@
-//Get current date using moment
-
-var currentDate = moment()
-console.log(currentDate)
-
-//Display date in the jumbotron
-var showDate = moment(currentDate).format('dddd, MMMM Do YYYY');
+//Get current date using moment and display date in the jumbotron
+var showDate = moment().format('dddd, MMMM Do YYYY');
 
 $('#currentDay').append(showDate)
+
+//Get current hour from moment
+var whatTimeIsIt = moment().hour();
+var currentHour = moment(whatTimeIsIt).format('HH');
+console.log(currentHour)
 
 
 //Array that will be used to display Timeblocks
@@ -14,48 +14,47 @@ $('#currentDay').append(showDate)
 var workDay = [
   {
     hour: '9am',
-    event: ''
+    momentHour: '09',
   },
   {
     hour: '10am',
-    event: '',
+    momentHour: '10',
   },
   {
     hour: '11am',
-    event: '',
+    momentHour: '11',
   },
   {
     hour: '12pm',
-    event: '',
+    momentHour: '12',
   },
   {
     hour: '1pm',
-    event: '',
+    momentHour: '13',
   },
   {
     hour: '2pm',
-    event: '',
+    momentHour: '14',
   },
   {
     hour: '3pm',
-    event: '',
+    momentHour: '15',
   },
   {
     hour: '4pm',
-    event: '',
+    momentHour: '16',
   },
   {
     hour: '5pm',
-    event: '',
+    momentHour: '17',
   }
-
 ]
 
 //Display Timeblocks
 
 workDay.forEach(hourBlock => {
   //Creates scheduler row
-  var row = $('<form>').addClass('row');
+  var row = $('<form>').addClass('row time-block');
   $('.container').append(row);
 
   //Creates time columns
@@ -66,9 +65,22 @@ workDay.forEach(hourBlock => {
   var eventColumn = $('<textarea>').text(hourBlock.event).addClass('col-md-9 description');
   $(row).append(eventColumn); 
 
+  //Create Save button
   var saveBtn = $('<button>').html('<i class="far fa-save"></i>').addClass('saveBtn col-md-1');
   $(row).append(saveBtn);
 
-
-
+  //Check if Hour is in the past, present, or future
+  if (currentHour > hourBlock.momentHour) {
+    eventColumn.addClass('past')
+  } else if (currentHour < hourBlock.momentHour) {
+    eventColumn.addClass('future')
+  }
+    else if (currentHour === hourBlock.momentHour) {
+      eventColumn.addClass('present')
+    }
 })
+
+
+
+
+
