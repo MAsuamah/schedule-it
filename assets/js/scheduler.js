@@ -4,8 +4,7 @@ var showDate = moment().format('dddd, MMMM Do YYYY');
 $('#currentDay').append(showDate)
 
 //Get current hour from moment
-var whatTimeIsIt = moment().hour();
-var currentHour = moment(whatTimeIsIt).format('HH');
+var currentHour = moment().format('HH');
 console.log(currentHour)
 
 
@@ -15,48 +14,57 @@ var workDay = [
   {
     hour: '9am',
     momentHour: '09',
-    event: ''
+    event: '',
+    id: 'a'
   },
   {
     hour: '10am',
     momentHour: '10',
-    event: ''
+    event: '',
+    id: 'b'
 
   },
   {
     hour: '11am',
     momentHour: '11',
-    event: ''
+    event: '',
+    id: 'c'
   },
   {
     hour: '12pm',
     momentHour: '12',
-    event: ''
+    event: '',
+    id: 'd'
   },
   {
     hour: '1pm',
     momentHour: '13',
-    event: ''
+    event: '',
+    id: 'e'
   },
   {
     hour: '2pm',
     momentHour: '14',
-    event: ''
+    event: '',
+    id: 'f'
   },
   {
     hour: '3pm',
     momentHour: '15',
-    event: ''
+    event: '',
+    id: 'g'
   },
   {
     hour: '4pm',
     momentHour: '16',
-    event: ''
+    event: '',
+    id: 'h'
   },
   {
     hour: '5pm',
     momentHour: '17',
-    event: ''
+    event: '',
+    id: 'i'
   }
 ]
 
@@ -72,7 +80,7 @@ workDay.forEach(hourBlock => {
   $(row).append(hourColumn);
 
   //Create event columns
-  var eventColumn = $('<textarea>').text(hourBlock.event).addClass('col-md-9 description');
+  var eventColumn = $('<textarea>').text(hourBlock.event).addClass('col-md-9 description').attr('id', hourBlock.id);
   $(row).append(eventColumn); 
 
   //Create Save button
@@ -88,13 +96,19 @@ workDay.forEach(hourBlock => {
     else if (currentHour === hourBlock.momentHour) {
       eventColumn.addClass('present')
     }
-    
-    saveBtn.on('click', function(event) {
-      event.preventDefault();
-      var getEvent =  $(this).siblings('.description').val()
-      var reloadEvent = localStorage.setItem('savedEvent', getEvent)
-    })
 })
+
+//Save Data with save button
+$('.saveBtn').on('click', function(event) {
+  event.preventDefault();
+  var getEvent = $(this).siblings('textarea').val()
+  console.log(getEvent)
+  localStorage.setItem('savedTask', getEvent)
+})
+
+
+
+
 
 
 
