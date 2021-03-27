@@ -15,38 +15,48 @@ var workDay = [
   {
     hour: '9am',
     momentHour: '09',
+    event: ''
   },
   {
     hour: '10am',
     momentHour: '10',
+    event: ''
+
   },
   {
     hour: '11am',
     momentHour: '11',
+    event: ''
   },
   {
     hour: '12pm',
     momentHour: '12',
+    event: ''
   },
   {
     hour: '1pm',
     momentHour: '13',
+    event: ''
   },
   {
     hour: '2pm',
     momentHour: '14',
+    event: ''
   },
   {
     hour: '3pm',
     momentHour: '15',
+    event: ''
   },
   {
     hour: '4pm',
     momentHour: '16',
+    event: ''
   },
   {
     hour: '5pm',
     momentHour: '17',
+    event: ''
   }
 ]
 
@@ -78,7 +88,15 @@ workDay.forEach(hourBlock => {
     else if (currentHour === hourBlock.momentHour) {
       eventColumn.addClass('present')
     }
+    
+    saveBtn.on('click', function(event) {
+      event.preventDefault();
+      var getEvent =  $(this).siblings('.description').val()
+      var reloadEvent = localStorage.setItem('savedEvent', getEvent)
+    })
 })
+
+
 
 
 
