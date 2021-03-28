@@ -66,7 +66,6 @@ var workDay = [
   }
 ];
 
-
 //Display Timeblocks
 
 workDay.forEach(hourBlock => {
@@ -87,14 +86,14 @@ workDay.forEach(hourBlock => {
   $(row).append(saveBtn);
 
   //Check if Hour is in the past, present, or future
-  if (currentHour > hourBlock.momentHour) {
-    eventColumn.addClass('past')
-  } else if (currentHour < hourBlock.momentHour) {
-    eventColumn.addClass('future')
-  }
-    else if (currentHour === hourBlock.momentHour) {
-      eventColumn.addClass('present')
+    if (currentHour > hourBlock.momentHour) {
+      eventColumn.addClass('past')
+    } else if (currentHour < hourBlock.momentHour) {
+      eventColumn.addClass('future')
     }
+      else if (currentHour === hourBlock.momentHour) {
+        eventColumn.addClass('present')
+      }
 });
 
 //Save Data to local storage with save button...code help from https://stackoverflow.com/questions/27273444/save-and-load-input-values-using-local-storage/27273657
@@ -115,6 +114,14 @@ $( document ).ready(function() {
       $(this).val(value);
   }); 
 });
+
+$('.btn-danger').on('click', function(event) {
+  event.preventDefault();
+  localStorage.clear();
+  $('textarea').val('')
+})
+
+
 
 
 
